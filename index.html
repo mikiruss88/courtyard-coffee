@@ -1,43 +1,3 @@
-
-Claude finished the response
-menu-Courtyard-Coffee-Drogheda.jpg
-make a free html code to integrate a menu into my website using the attached menu as guidance. I want people to place order via website
-
-20:25
-
-Viewed a file, created a file, read a file
-Viewed a file, created a file, read a file
-Here's your complete ordering page for Courtyard Coffee! Here's what's included:
-
-Menu — all items from your price list across four sections: Hot Coffee, Iced, Tea & Other Drinks, and Sweet Treats & Snacks, with an Extras add-on section (shot, syrup, alternative milk, cream).
-
-Order sidebar — a sticky cart that updates live as customers tap +/− on items. It shows a running total, extras, and a customer details form (name, contact, order type, notes).
-
-To integrate it into your website, you have a few options:
-
-Drop it in as a standalone page (e.g. order.html)
-Copy the <style> and <body> content into your existing site template
-To actually receive orders, find this line near the bottom of the JS:
-
-js
-console.log('ORDER SUBMITTED:', orderData);
-Replace it with a fetch() call to your backend or a service like Formspree, EmailJS, or Netlify Forms — happy to set that up for you if you let me know what you're using.
-
-
-Courtyard coffee menu
-Code · HTML 
-
-You've used 90% of your session limit
-Upgrade
-
-
-
-
-Claude is AI and can make mistakes. Please double-check responses.
-
-
-raw
-Courtyard coffee menu · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,9 +16,9 @@ Courtyard coffee menu · HTML
     --text: #2d1f10;
     --muted: #7a6550;
   }
- 
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
- 
+
   body {
     background: var(--cream);
     color: var(--text);
@@ -66,7 +26,7 @@ Courtyard coffee menu · HTML
     font-weight: 300;
     min-height: 100vh;
   }
- 
+
   /* HEADER */
   header {
     background: var(--dark);
@@ -107,14 +67,14 @@ Courtyard coffee menu · HTML
     position: relative;
     z-index: 1;
   }
- 
+
   /* LAYOUT */
   .container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 1.5rem;
   }
- 
+
   .main-grid {
     display: grid;
     grid-template-columns: 1fr 340px;
@@ -125,7 +85,7 @@ Courtyard coffee menu · HTML
   @media (max-width: 780px) {
     .main-grid { grid-template-columns: 1fr; }
   }
- 
+
   /* SECTION TITLES */
   .section-label {
     font-size: 0.65rem;
@@ -143,7 +103,7 @@ Courtyard coffee menu · HTML
     height: 1px;
     background: var(--soft);
   }
- 
+
   .category-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
@@ -154,7 +114,7 @@ Courtyard coffee menu · HTML
     border-bottom: 1px solid var(--soft);
   }
   .category-title:first-of-type { margin-top: 0; }
- 
+
   /* MENU ITEMS */
   .menu-item {
     display: flex;
@@ -178,7 +138,7 @@ Courtyard coffee menu · HTML
     border-color: var(--gold);
     background: #fdf8ee;
   }
- 
+
   .item-info { flex: 1; }
   .item-name {
     font-family: 'Playfair Display', serif;
@@ -192,7 +152,7 @@ Courtyard coffee menu · HTML
     margin-top: 0.15rem;
     letter-spacing: 0.02em;
   }
- 
+
   .item-right {
     display: flex;
     align-items: center;
@@ -207,7 +167,7 @@ Courtyard coffee menu · HTML
     min-width: 50px;
     text-align: right;
   }
- 
+
   .qty-ctrl {
     display: flex;
     align-items: center;
@@ -234,7 +194,7 @@ Courtyard coffee menu · HTML
     font-size: 0.95rem;
     color: var(--text);
   }
- 
+
   /* extras note */
   .extras-grid {
     display: grid;
@@ -258,7 +218,7 @@ Courtyard coffee menu · HTML
   .extra-item input[type="checkbox"] { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
   .extra-name { flex: 1; color: var(--text); font-weight: 400; }
   .extra-price { color: var(--muted); font-size: 0.78rem; }
- 
+
   /* ORDER SIDEBAR */
   .order-panel {
     background: var(--dark);
@@ -291,7 +251,7 @@ Courtyard coffee menu · HTML
     display: none;
   }
   .order-badge.visible { display: inline-block; }
- 
+
   .cart-items { min-height: 80px; }
   .cart-empty {
     text-align: center;
@@ -300,7 +260,7 @@ Courtyard coffee menu · HTML
     font-size: 0.9rem;
   }
   .cart-empty span { display: block; font-size: 2rem; margin-bottom: 0.5rem; }
- 
+
   .cart-line {
     display: flex;
     justify-content: space-between;
@@ -313,14 +273,14 @@ Courtyard coffee menu · HTML
   .cart-line-name { flex: 1; color: var(--cream); line-height: 1.3; }
   .cart-line-name small { display: block; color: rgba(245,240,232,0.5); font-size: 0.75rem; margin-top: 0.1rem; }
   .cart-line-price { color: var(--gold); font-weight: 500; flex-shrink: 0; }
- 
+
   .cart-extras-summary {
     padding: 0.6rem 0;
     border-bottom: 1px solid rgba(255,255,255,0.07);
     font-size: 0.82rem;
     color: rgba(245,240,232,0.6);
   }
- 
+
   .cart-total {
     display: flex;
     justify-content: space-between;
@@ -331,7 +291,7 @@ Courtyard coffee menu · HTML
     font-size: 1.1rem;
   }
   .cart-total .t-price { color: var(--gold); font-weight: 700; }
- 
+
   /* Customer details */
   .customer-form { margin-top: 1.5rem; }
   .customer-form label {
@@ -361,7 +321,7 @@ Courtyard coffee menu · HTML
   }
   .customer-form select option { background: var(--dark); }
   .customer-form textarea { resize: vertical; min-height: 60px; }
- 
+
   .order-btn {
     width: 100%;
     margin-top: 1.4rem;
@@ -379,7 +339,7 @@ Courtyard coffee menu · HTML
   }
   .order-btn:hover { opacity: 0.9; transform: translateY(-1px); }
   .order-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
- 
+
   /* SUCCESS */
   .success-msg {
     display: none;
@@ -390,16 +350,16 @@ Courtyard coffee menu · HTML
   .success-msg span { font-size: 2.5rem; display: block; margin-bottom: 0.8rem; }
   .success-msg h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--gold); margin-bottom: 0.5rem; }
   .success-msg p { font-size: 0.85rem; color: rgba(245,240,232,0.6); line-height: 1.6; }
- 
+
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
- 
+
   /* Divider */
   hr.divider {
     border: none;
     border-top: 1px solid var(--soft);
     margin: 2rem 0 1.5rem;
   }
- 
+
   @media (max-width: 500px) {
     .extras-grid { grid-template-columns: 1fr; }
     .menu-item { padding: 0.7rem 0.8rem; }
@@ -407,7 +367,7 @@ Courtyard coffee menu · HTML
 </style>
 </head>
 <body>
- 
+
 <header>
   <div class="logo-arch">
     <svg viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -433,37 +393,37 @@ Courtyard coffee menu · HTML
   <h1>Courtyard Coffee</h1>
   <p>Drogheda &nbsp;·&nbsp; Order Online</p>
 </header>
- 
+
 <div class="container">
   <div class="main-grid">
- 
+
     <!-- MENU COLUMN -->
     <div class="menu-col">
- 
+
       <!-- COFFEE -->
       <div class="section-label">Hot Coffee</div>
       <div id="menu-hot-coffee"></div>
- 
+
       <!-- ICED -->
       <div class="category-title">Iced</div>
       <div id="menu-iced"></div>
- 
+
       <!-- TEA & OTHER DRINKS -->
       <div class="category-title">Tea &amp; Other Drinks</div>
       <div id="menu-drinks"></div>
- 
+
       <!-- SWEET TREATS -->
       <div class="category-title">Sweet Treats &amp; Snacks</div>
       <div id="menu-treats"></div>
- 
+
       <hr class="divider">
- 
+
       <!-- EXTRAS -->
       <div class="section-label">Extras — Add to your order</div>
       <div class="extras-grid" id="extras-grid"></div>
- 
+
     </div>
- 
+
     <!-- ORDER SIDEBAR -->
     <div>
       <div class="order-panel" id="order-panel">
@@ -471,7 +431,7 @@ Courtyard coffee menu · HTML
           Your Order
           <span class="order-badge" id="order-badge">0</span>
         </h2>
- 
+
         <div id="cart-body">
           <div class="cart-items" id="cart-items">
             <div class="cart-empty" id="cart-empty">
@@ -479,14 +439,14 @@ Courtyard coffee menu · HTML
               Nothing added yet — tap any item to add it
             </div>
           </div>
- 
+
           <div id="cart-extras-row" style="display:none;" class="cart-extras-summary"></div>
- 
+
           <div class="cart-total" id="cart-total" style="display:none;">
             <span>Total</span>
             <span class="t-price" id="cart-total-price">€0.00</span>
           </div>
- 
+
           <div class="customer-form" id="customer-form">
             <label>Your Name</label>
             <input type="text" id="c-name" placeholder="e.g. Aoife">
@@ -500,10 +460,10 @@ Courtyard coffee menu · HTML
             <label>Special Notes</label>
             <textarea id="c-notes" placeholder="Allergies, preferences…"></textarea>
           </div>
- 
+
           <button class="order-btn" id="place-order-btn" disabled>Place Order</button>
         </div>
- 
+
         <div class="success-msg" id="success-msg">
           <span>🎉</span>
           <h3>Order Received!</h3>
@@ -511,10 +471,10 @@ Courtyard coffee menu · HTML
         </div>
       </div>
     </div>
- 
+
   </div>
 </div>
- 
+
 <script>
 // ── DATA ──────────────────────────────────────────────────────────────────────
 const hotCoffee = [
@@ -525,12 +485,12 @@ const hotCoffee = [
   { id: 'latte',       name: 'Latte',       price: 3.20 },
   { id: 'mocha',       name: 'Mocha',       price: 3.70 },
 ];
- 
+
 const icedItems = [
   { id: 'iced-latte',  name: 'Iced Latte',  price: 3.50 },
   { id: 'iced-tea',    name: 'Iced Tea',     price: 3.50, sub: 'Lemon or Peach — add preference in notes' },
 ];
- 
+
 const drinks = [
   { id: 'tea',         name: 'Tea',          price: 2.60 },
   { id: 'herbal-tea',  name: 'Herbal Tea',   price: 2.60 },
@@ -541,28 +501,28 @@ const drinks = [
   { id: 'water',       name: 'Water',        price: 1.50 },
   { id: 'juice',       name: 'Juice',        price: 1.00 },
 ];
- 
+
 const treats = [
   { id: 'pastry',      name: 'Pastry',       price: 2.50 },
   { id: 'protein-ball',name: 'Protein Ball', price: 2.00 },
   { id: 'bar',         name: 'Bar',          price: 1.50 },
   { id: 'pringles',    name: 'Pringles',     price: 1.50 },
 ];
- 
+
 const extras = [
   { id: 'x-shot',      name: 'Extra Shot',       price: 0.50 },
   { id: 'x-syrup',     name: 'Syrup',            price: 0.30 },
   { id: 'x-altmilk',   name: 'Alternative Milk', price: 0.50 },
   { id: 'x-cream',     name: 'Cream',            price: 0.30 },
 ];
- 
+
 // ── STATE ─────────────────────────────────────────────────────────────────────
 const cart = {};         // id → qty
 const selectedExtras = new Set();
- 
+
 // ── RENDER HELPERS ─────────────────────────────────────────────────────────────
 function fmt(n) { return '€' + n.toFixed(2); }
- 
+
 function renderSection(containerId, items) {
   const el = document.getElementById(containerId);
   el.innerHTML = '';
@@ -587,7 +547,7 @@ function renderSection(containerId, items) {
     el.appendChild(div);
   });
 }
- 
+
 function renderExtras() {
   const el = document.getElementById('extras-grid');
   el.innerHTML = '';
@@ -601,13 +561,13 @@ function renderExtras() {
     el.appendChild(div);
   });
 }
- 
+
 // ── UPDATE CART ────────────────────────────────────────────────────────────────
 function updateCart() {
   const allItems = [...hotCoffee, ...icedItems, ...drinks, ...treats];
   const itemMap = {};
   allItems.forEach(i => { itemMap[i.id] = i; });
- 
+
   // Update qty displays & item highlight
   allItems.forEach(item => {
     const qty = cart[item.id] || 0;
@@ -616,7 +576,7 @@ function updateCart() {
     if (qtyEl) qtyEl.textContent = qty;
     if (rowEl) rowEl.classList.toggle('in-cart', qty > 0);
   });
- 
+
   // Build cart lines
   const cartItemsEl = document.getElementById('cart-items');
   const cartEmptyEl = document.getElementById('cart-empty');
@@ -625,14 +585,14 @@ function updateCart() {
   const cartExtrasRow = document.getElementById('cart-extras-row');
   const badge = document.getElementById('order-badge');
   const btn = document.getElementById('place-order-btn');
- 
+
   const lines = Object.entries(cart).filter(([,q]) => q > 0);
   let total = 0;
   let totalQty = 0;
- 
+
   // Remove old cart lines (not empty msg)
   cartItemsEl.querySelectorAll('.cart-line').forEach(el => el.remove());
- 
+
   if (lines.length === 0) {
     cartEmptyEl.style.display = '';
   } else {
@@ -651,7 +611,7 @@ function updateCart() {
       cartItemsEl.appendChild(line);
     });
   }
- 
+
   // Extras summary
   let extraTotal = 0;
   const extraNames = [];
@@ -666,19 +626,19 @@ function updateCart() {
   } else {
     cartExtrasRow.style.display = 'none';
   }
- 
+
   if (lines.length > 0) {
     cartTotalEl.style.display = '';
     cartTotalPrice.textContent = fmt(total);
   } else {
     cartTotalEl.style.display = 'none';
   }
- 
+
   badge.textContent = totalQty;
   badge.classList.toggle('visible', totalQty > 0);
   btn.disabled = lines.length === 0;
 }
- 
+
 // ── EVENT DELEGATION ───────────────────────────────────────────────────────────
 document.addEventListener('click', e => {
   const btn = e.target.closest('.qty-btn');
@@ -694,7 +654,7 @@ document.addEventListener('click', e => {
     return;
   }
 });
- 
+
 document.addEventListener('change', e => {
   const cb = e.target.closest('[data-extra]');
   if (cb) {
@@ -707,41 +667,41 @@ document.addEventListener('change', e => {
     updateCart();
   }
 });
- 
+
 // ── PLACE ORDER ────────────────────────────────────────────────────────────────
 document.getElementById('place-order-btn').addEventListener('click', () => {
   const name = document.getElementById('c-name').value.trim() || 'Customer';
   const contact = document.getElementById('c-contact').value.trim();
   const type = document.getElementById('c-type').value;
   const notes = document.getElementById('c-notes').value.trim();
- 
+
   // Build order summary (you could POST this to your backend)
   const allItems = [...hotCoffee, ...icedItems, ...drinks, ...treats];
   const itemMap = {};
   allItems.forEach(i => { itemMap[i.id] = i; });
- 
+
   const orderLines = Object.entries(cart)
     .filter(([,q]) => q > 0)
     .map(([id, qty]) => `${itemMap[id]?.name} ×${qty}`);
- 
+
   const extraNames = [...selectedExtras].map(eid => extras.find(e => e.id === eid)?.name).filter(Boolean);
- 
+
   const orderData = {
     name, contact, type, notes,
     items: orderLines,
     extras: extraNames,
     timestamp: new Date().toISOString()
   };
- 
+
   console.log('ORDER SUBMITTED:', orderData);
   // ↑ Replace the console.log with your actual backend call, e.g.:
   // fetch('/api/orders', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(orderData) })
- 
+
   document.getElementById('success-name').textContent = name;
   document.getElementById('cart-body').style.display = 'none';
   document.getElementById('success-msg').style.display = 'block';
 });
- 
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
 renderSection('menu-hot-coffee', hotCoffee);
 renderSection('menu-iced', icedItems);
@@ -752,5 +712,3 @@ updateCart();
 </script>
 </body>
 </html>
- 
-
