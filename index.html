@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Courtyard Coffee — Order Online</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('ng7CnP_ZNPtxKums3');</script>
 <style>
   :root {
     --cream: #f5f0e8;
@@ -492,18 +494,12 @@
           <button class="order-btn" id="place-order-btn" disabled>Place Order</button>
         </div>
 
-      <div class="success-msg" id="success-msg">
-  <span>🎉</span>
-  <h3>Order Received!</h3>
-
-  <p>
-    Thanks, <strong id="success-name"></strong>!
-  </p>
-
-  <p id="success-confirm">
-    Your order has been sent.
-  </p>
-</div>
+        <div class="success-msg" id="success-msg">
+          <span>🎉</span>
+          <h3>Order Received!</h3>
+          <p>Thanks, <strong id="success-name"></strong>! <span id="success-confirm"></span></p>
+          <p style="margin-top:0.6rem;font-size:0.8rem;opacity:0.5;">A confirmation has been sent to us — we'll be in touch if needed.</p>
+        </div>
       </div>
     </div>
 
@@ -711,124 +707,7 @@ function handleOrderType() {
 }
 
 // ── PLACE ORDER ────────────────────────────────────────────────────────────────
-document.getElementById('place-order-btn').addEventListener('click', async () => {
-
-  const name = document.getElementById('c-name').value.trim();
-  const contact = document.getElementById('c-contact').value.trim();
-  const type = document.getElementById('c-type').value;
-  const notes = document.getElementById('c-notes').value.trim();
-
-  const arrival = document.getElementById('c-arrival')?.value || '';
-  const pickupDate = document.getElementById('c-pickup-date')?.value || '';
-
-  const address = document.getElementById('c-address')?.value.trim() || '';
-  const eircode = document.getElementById('c-eircode')?.value.trim() || '';
-  const deliveryTime = document.getElementById('c-delivery-time')?.value || '';
-  const deliveryNotes = document.getElementById('c-delivery-notes')?.value.trim() || '';
-
-  if (!name) {
-    alert('Please enter your name');
-    return;
-  }
-
-  if (!contact) {
-    alert('Please enter your phone number or email');
-    return;
-  }
-
-  if (type === 'pickup' && !arrival) {
-    alert('Please enter your intended collection time');
-    return;
-  }
-
-  if (type === 'delivery' && !address) {
-    alert('Please enter a delivery address');
-    return;
-  }
-
-  const allItems = [...hotCoffee, ...icedItems, ...drinks, ...treats];
-
-  const itemMap = {};
-  allItems.forEach(i => itemMap[i.id] = i);
-
-  const orderLines = Object.entries(cart)
-    .filter(([, qty]) => qty > 0)
-    .map(([id, qty]) => `${itemMap[id].name} x${qty}`);
-
-  const extrasSelected = [...selectedExtras]
-    .map(id => extras.find(e => e.id === id)?.name)
-    .filter(Boolean);
-
-  const emailMessage = `
-CUSTOMER
-Name: ${name}
-Contact: ${contact}
-
-ORDER TYPE
-${type}
-
-${pickupDate ? `Collection Date: ${pickupDate}` : ''}
-${arrival ? `Arrival Time: ${arrival}` : ''}
-
-${address ? `Address: ${address}` : ''}
-${eircode ? `Eircode: ${eircode}` : ''}
-${deliveryTime ? `Delivery Time: ${deliveryTime}` : ''}
-${deliveryNotes ? `Delivery Instructions: ${deliveryNotes}` : ''}
-
-ITEMS
-${orderLines.join('\n')}
-
-EXTRAS
-${extrasSelected.join(', ') || 'None'}
-
-NOTES
-${notes || 'None'}
-`;
-
-  try {
-
-    await emailjs.send(
-      "service_krzuyq2",
-      "template_6st013c",
-      {
-        customer_name: name,
-        customer_contact: contact,
-        order_type: type,
-        message: emailMessage
-      }
-    );
-
-    let confirmLine = '';
-
-    if (type === 'pickup') {
-      confirmLine = `We'll have your order ready at <strong>${arrival}</strong>.`;
-    }
-    else if (type === 'delivery') {
-      confirmLine = `We'll prepare your delivery shortly.`;
-    }
-    else {
-      confirmLine = `We'll begin preparing your order right away.`;
-    }
-
-    document.getElementById('success-name').textContent = name;
-
-    const successConfirm = document.getElementById('success-confirm');
-    if (successConfirm) {
-      successConfirm.innerHTML = confirmLine;
-    }
-
-    document.getElementById('cart-body').style.display = 'none';
-    document.getElementById('success-msg').style.display = 'block';
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert(
-      'There was a problem sending the order email. Please try again.'
-    );
-  }
-});
+document.getElementById('place-order-btn').addEventListener('click', () => {
   const name    = document.getElementById('c-name').value.trim() || 'Customer';
   const contact = document.getElementById('c-contact').value.trim();
   const type    = document.getElementById('c-type').value;
@@ -852,28 +731,51 @@ ${notes || 'None'}
     name, contact, type, notes,
     items: orderLines,
     extras: extraNames,
-    ...(type === 'pickup'   && arrival      ? { arrivalTime: arrival }           : {}),
-    ...(type === 'delivery' && address      ? { deliveryAddress: address }       : {}),
-    ...(type === 'delivery' && deliveryTime ? { deliveryTime: deliveryTime }     : {}),
+    ...(type === 'pickup'   && arrival      ? { arrivalTime: arrival }       : {}),
+    ...(type === 'delivery' && address      ? { deliveryAddress: address }   : {}),
+    ...(type === 'delivery' && deliveryTime ? { deliveryTime: deliveryTime } : {}),
     timestamp: new Date().toISOString()
   };
 
-  console.log('ORDER SUBMITTED:', orderData);
-  // ↑ Replace the console.log with your actual backend call, e.g.:
-  // fetch('/api/orders', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(orderData) })
-
-  // Build a friendly confirmation line
+  // ── Build friendly confirmation line ────────────────────────────────────────
   let confirmLine = '';
-  if (type === 'pickup' && arrival)           confirmLine = `We'll have it ready for collection at <strong>${arrival}</strong>.`;
-  else if (type === 'pickup')                 confirmLine = `Come in whenever you're ready and we'll sort you out!`;
+  if      (type === 'pickup'   && arrival)      confirmLine = `We'll have it ready for collection at <strong>${arrival}</strong>.`;
+  else if (type === 'pickup')                   confirmLine = `Come in whenever you're ready and we'll sort you out!`;
   else if (type === 'delivery' && deliveryTime) confirmLine = `We'll aim to deliver to you at <strong>${deliveryTime}</strong>. 🛵`;
-  else if (type === 'delivery')               confirmLine = `We'll get your order out to you shortly. 🛵`;
-  else                                        confirmLine = `Your order will be ready for you shortly!`;
+  else if (type === 'delivery')                 confirmLine = `We'll get your order out to you shortly. 🛵`;
+  else                                          confirmLine = `Your order will be ready for you shortly at Courtyard Coffee!`;
 
-  document.getElementById('success-name').textContent = name;
-  document.getElementById('success-confirm').innerHTML = confirmLine;
-  document.getElementById('cart-body').style.display = 'none';
-  document.getElementById('success-msg').style.display = 'block';
+  // ── Build order type label ──────────────────────────────────────────────────
+  const typeLabels = { 'sit-in': 'Sit In', 'pickup': 'Collection / Pick Up', 'delivery': 'Delivery' };
+
+  // ── Send via EmailJS ────────────────────────────────────────────────────────
+  const btn = document.getElementById('place-order-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  emailjs.send('service_krzuyq2', 'template_079zd6h', {
+    customer_name:    name,
+    customer_contact: contact || 'Not provided',
+    order_type:       typeLabels[type] || type,
+    arrival_time:     type === 'pickup'   ? (arrival      || 'Not specified') : '—',
+    delivery_address: type === 'delivery' ? (address      || 'Not specified') : '—',
+    delivery_time:    type === 'delivery' ? (deliveryTime || 'Not specified') : '—',
+    order_items:      orderLines.join('\n'),
+    extras:           extraNames.length ? extraNames.join(', ') : 'None',
+    order_total:      document.getElementById('cart-total-price').textContent,
+    special_notes:    notes || 'None',
+    order_timestamp:  new Date().toLocaleString('en-IE', { dateStyle: 'medium', timeStyle: 'short' }),
+  }).then(() => {
+    document.getElementById('success-name').textContent = name;
+    document.getElementById('success-confirm').innerHTML = confirmLine;
+    document.getElementById('cart-body').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }).catch((err) => {
+    console.error('EmailJS error:', err);
+    btn.disabled = false;
+    btn.textContent = 'Place Order';
+    alert('Sorry, there was a problem sending your order. Please call us or try again.');
+  });
 });
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
@@ -883,14 +785,6 @@ renderSection('menu-drinks', drinks);
 renderSection('menu-treats', treats);
 renderExtras();
 updateCart();
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-<script>
-(function() {
-  emailjs.init({
-    publicKey: "ng7CnP_ZNPtxKums3"
-  });
-})();
 </script>
 </body>
 </html>
