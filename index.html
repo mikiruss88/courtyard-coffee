@@ -26,7 +26,7 @@
     line-height: 1.6;
   }
 
-  /* 1. HERO SECTION */
+  /* 1. HERO SECTION WITH VIDEO */
   .hero {
     height: 100vh;
     display: flex;
@@ -36,9 +36,10 @@
     color: white;
     text-align: center;
     overflow: hidden;
-    background-color: var(--dark);
+    background-color: #000; /* Fallback while loading */
   }
 
+  /* Video Layer */
   .hero-video {
     position: absolute;
     top: 50%;
@@ -47,37 +48,50 @@
     min-height: 100%;
     width: auto;
     height: auto;
-    z-index: -2;
+    z-index: 1; /* Lowest layer */
     transform: translate(-50%, -50%);
     object-fit: cover;
   }
 
+  /* Dark Overlay Layer */
   .hero-overlay {
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 2; /* Sits on top of video, below text */
+  }
+
+  /* Text Content Layer */
+  .hero-content {
+    position: relative;
+    z-index: 3; /* Top layer */
+    padding: 0 20px;
   }
 
   .hero-content h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 10vw, 6rem);
+    font-size: clamp(3.5rem, 10vw, 6.5rem);
     font-weight: 900;
     margin-bottom: 1rem;
-    line-height: 1;
+    line-height: 1.1;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
   }
 
   .hero-content p {
     font-size: 1.2rem;
-    letter-spacing: 4px;
+    letter-spacing: 5px;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    font-weight: 500;
   }
 
   .btn-primary {
     display: inline-block;
-    padding: 1.2rem 2.5rem;
+    padding: 1.2rem 3rem;
     background: var(--gold);
     color: white;
     text-decoration: none;
@@ -85,9 +99,15 @@
     border-radius: 50px;
     transition: 0.3s;
     font-family: 'Playfair Display', serif;
+    border: 2px solid var(--gold);
   }
 
-  .btn-primary:hover { background: var(--white); color: var(--dark); transform: translateY(-3px); }
+  .btn-primary:hover { 
+    background: transparent; 
+    color: white; 
+    border-color: white;
+    transform: translateY(-3px); 
+  }
 
   /* 2. ABOUT SECTION */
   .about-section {
@@ -180,7 +200,7 @@
   .qty-btn { width: 28px; height: 28px; border-radius: 50%; border: none; background: white; cursor: pointer; font-weight: bold; }
   .qty-num { padding: 0 10px; font-weight: 600; min-width: 30px; text-align: center; }
 
-  /* SIDEBAR */
+  /* SIDEBAR & FORM */
   .order-panel {
     background: var(--dark); color: white;
     border-radius: 24px; padding: 2.5rem 2rem;
@@ -193,7 +213,15 @@
   .cart-total { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--gold); display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem; }
 
   .customer-form label { display: block; font-size: 0.7rem; color: var(--gold); text-transform: uppercase; margin-top: 1rem; }
-  .customer-form input, select, textarea { width: 100%; background: #1e1c1a; border: 1px solid #333; color: white; padding: 0.7rem; border-radius: 8px; margin-top: 0.3rem; }
+  .customer-form input, select, textarea { width: 100%; background: #1e1c1a; border: 1px solid #333; color: white; padding: 0.7rem; border-radius: 8px; margin-top: 0.3rem; font-family: 'Jost', sans-serif; }
+
+  #delivery-info {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: rgba(179, 139, 77, 0.1);
+    border-radius: 12px;
+    border: 1px solid #3d2b1f;
+  }
 
   .order-btn {
     width: 100%; padding: 1rem; background: var(--gold); color: white; border: none; border-radius: 50px;
@@ -210,15 +238,15 @@
   footer {
     background: var(--dark);
     color: var(--white);
-    padding: 4rem 2rem 2rem;
+    padding: 5rem 2rem 3rem;
     text-align: center;
   }
 
   .footer-socials {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
   }
 
   .footer-socials a {
@@ -226,31 +254,35 @@
     text-decoration: none;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.9rem;
+    letter-spacing: 3px;
+    font-size: 0.85rem;
     transition: 0.3s;
   }
 
-  .footer-socials a:hover { color: var(--white); }
+  .footer-socials a:hover { color: var(--white); transform: translateY(-3px); }
 
   .footer-credit {
-    font-size: 0.8rem;
-    opacity: 0.6;
-    border-top: 1px solid #333;
-    padding-top: 2rem;
-    letter-spacing: 1px;
+    font-size: 0.75rem;
+    opacity: 0.5;
+    border-top: 1px solid #222;
+    padding-top: 3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
   }
 
 </style>
 </head>
 <body>
 
-  <!-- 1. HERO SECTION -->
+  <!-- 1. HERO SECTION WITH VIDEO -->
   <section class="hero">
+    <!-- Updated Video Source: Professional Espresso Pour -->
     <video autoplay muted loop playsinline class="hero-video">
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-coffee-pouring-from-a-machine-into-a-cup-3286-large.mp4" type="video/mp4">
+      <source src="https://player.vimeo.com/external/394334336.sd.mp4?s=f36113b28f73f82e75e11364d94819d44c21950d&profile_id=139&oauth2_token_id=57447761" type="video/mp4">
     </video>
+    
     <div class="hero-overlay"></div>
+    
     <div class="hero-content">
       <p>Artisan Brewing in Drogheda</p>
       <h1>Courtyard Coffee</h1>
@@ -280,10 +312,11 @@
     <div class="container">
       <div class="main-grid">
 
+        <!-- MENU -->
         <div class="menu-col">
           <div class="category-section">
             <div class="cat-header">
-              <!-- FIXED MISSING IMAGE -->
+              <!-- FIXED HOT COFFEE IMAGE -->
               <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=150&auto=format&fit=crop" alt="Hot Coffee">
               <h3>Hot Coffee</h3>
             </div>
@@ -310,6 +343,7 @@
           <div class="extras-grid" id="extras-grid"></div>
         </div>
 
+        <!-- CHECKOUT PANEL -->
         <div>
           <div class="order-panel">
             <h2>Your Selection</h2>
@@ -326,14 +360,24 @@
               <div class="customer-form">
                 <label>Name</label>
                 <input type="text" id="c-name" placeholder="E.g. John">
+                
                 <label>Order Type</label>
                 <select id="c-type" onchange="updateCart()">
                   <option value="sit-in">Sit In</option>
                   <option value="pickup">Pick Up</option>
                   <option value="delivery">Delivery (+€4.00 fee)</option>
                 </select>
+
+                <!-- DYNAMIC DELIVERY FIELDS -->
+                <div id="delivery-info" style="display:none;">
+                  <label>Delivery Address</label>
+                  <input type="text" id="c-address" placeholder="Street name and house number">
+                  <label>Eircode</label>
+                  <input type="text" id="c-eircode" placeholder="e.g. A92 X123">
+                </div>
+
                 <label>Notes</label>
-                <textarea id="c-notes" rows="2"></textarea>
+                <textarea id="c-notes" rows="2" placeholder="Any special instructions?"></textarea>
               </div>
 
               <button class="order-btn" id="place-order-btn" disabled>Place Order</button>
@@ -439,11 +483,20 @@ function renderExtras() {
 function updateCart() {
     const itemsEl = document.getElementById('cart-items');
     const orderType = document.getElementById('c-type').value;
+    const deliveryInfo = document.getElementById('delivery-info');
     const allItems = [...hotCoffee, ...icedItems, ...treats];
     let total = 0;
     let hasItems = false;
     itemsEl.innerHTML = '';
     
+    // Toggle Delivery UI
+    if (orderType === 'delivery') {
+        deliveryInfo.style.display = 'block';
+    } else {
+        deliveryInfo.style.display = 'none';
+    }
+
+    // Calculate Items
     allItems.forEach(item => {
         const q = cart[item.id] || 0;
         document.getElementById('qty-'+item.id).textContent = q;
@@ -455,16 +508,17 @@ function updateCart() {
         }
     });
 
+    // Calculate Extras
     selectedExtras.forEach(eid => {
         const ex = extras.find(e => e.id === eid);
         total += ex.price;
         itemsEl.innerHTML += `<div class="cart-line" style="color:var(--gold)"><span>+ ${ex.name}</span><span>${fmt(ex.price)}</span></div>`;
     });
 
-    // DELIVERY FEE LOGIC
+    // Delivery Fee Logic
     if (hasItems && orderType === 'delivery') {
         total += 4.00;
-        itemsEl.innerHTML += `<div class="cart-line" style="border-top:1px solid #333; padding-top:10px;"><span>Delivery Fee</span><span>€4.00</span></div>`;
+        itemsEl.innerHTML += `<div class="cart-line" style="border-top:1px solid #333; padding-top:10px; margin-top:10px;"><span>Delivery Fee</span><span>€4.00</span></div>`;
     }
 
     document.getElementById('cart-total').style.display = hasItems ? 'flex' : 'none';
