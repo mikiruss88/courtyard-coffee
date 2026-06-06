@@ -26,7 +26,7 @@
     line-height: 1.6;
   }
 
-  /* 1. HERO SECTION WITH VIDEO */
+  /* 1. HERO SECTION */
   .hero {
     height: 100vh;
     display: flex;
@@ -36,10 +36,9 @@
     color: white;
     text-align: center;
     overflow: hidden;
-    background-color: var(--dark); /* Fallback */
+    background-color: var(--dark);
   }
 
-  /* Video container and styling */
   .hero-video {
     position: absolute;
     top: 50%;
@@ -53,20 +52,11 @@
     object-fit: cover;
   }
 
-  /* Dark overlay to make text readable */
   .hero-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Adjust opacity here */
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     z-index: -1;
-  }
-
-  .hero-content {
-    z-index: 1;
-    padding: 0 20px;
   }
 
   .hero-content h1 {
@@ -75,7 +65,6 @@
     font-weight: 900;
     margin-bottom: 1rem;
     line-height: 1;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
   }
 
   .hero-content p {
@@ -168,7 +157,6 @@
 
   @media (max-width: 950px) { .main-grid { grid-template-columns: 1fr; } }
 
-  /* MENU COMPONENTS */
   .category-section {
     margin-bottom: 3rem;
     border-bottom: 1px solid #eee;
@@ -176,7 +164,7 @@
   }
 
   .cat-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-  .cat-header img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+  .cat-header img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background: #eee; }
   .cat-header h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; }
 
   .menu-item {
@@ -218,21 +206,51 @@
   .extra-item { background: var(--cream); padding: 0.8rem; border-radius: 10px; font-size: 0.85rem; cursor: pointer; border: 1px solid transparent; }
   .extra-item.selected { border-color: var(--gold); background: #fff; }
 
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: var(--white);
+    padding: 4rem 2rem 2rem;
+    text-align: center;
+  }
+
+  .footer-socials {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .footer-socials a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+  }
+
+  .footer-socials a:hover { color: var(--white); }
+
+  .footer-credit {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    border-top: 1px solid #333;
+    padding-top: 2rem;
+    letter-spacing: 1px;
+  }
+
 </style>
 </head>
 <body>
 
-  <!-- 1. HERO SECTION WITH VIDEO -->
+  <!-- 1. HERO SECTION -->
   <section class="hero">
-    <!-- Background Video -->
     <video autoplay muted loop playsinline class="hero-video">
       <source src="https://assets.mixkit.co/videos/preview/mixkit-coffee-pouring-from-a-machine-into-a-cup-3286-large.mp4" type="video/mp4">
-      Your browser does not support the video tag.
     </video>
-    
-    <!-- Dark overlay for readability -->
     <div class="hero-overlay"></div>
-
     <div class="hero-content">
       <p>Artisan Brewing in Drogheda</p>
       <h1>Courtyard Coffee</h1>
@@ -248,26 +266,25 @@
     <div class="about-text">
       <h2>Crafting Moments, One Cup at a Time</h2>
       <p>Tucked away in the heart of Drogheda, Courtyard Coffee is more than just a café. We are a sanctuary for coffee lovers who appreciate the art of a perfect pour.</p>
-      <p>From our ethically sourced beans to our locally baked pastries, every detail is designed to bring you a moment of peace in your busy day. Whether you're sitting in our sun-drenched courtyard or grabbing a flat white on the go, we're here to fuel your journey.</p>
+      <p>From our ethically sourced beans to our locally baked pastries, every detail is designed to bring you a moment of peace in your busy day.</p>
     </div>
   </section>
 
   <!-- 3. ORDERING SECTION -->
   <section class="order-container" id="order-section">
     <div class="section-title">
-      <h2>Our Collection</h2>
+      <h2>Order Online</h2>
       <p>Hand-crafted beverages & provisions</p>
     </div>
 
     <div class="container">
       <div class="main-grid">
 
-        <!-- MENU ITEMS -->
         <div class="menu-col">
-          
           <div class="category-section">
             <div class="cat-header">
-              <img src="https://images.unsplash.com/photo-1541167760496-1628856ab752?auto=format&fit=crop&q=80&w=150" alt="Hot Coffee">
+              <!-- FIXED MISSING IMAGE -->
+              <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=150&auto=format&fit=crop" alt="Hot Coffee">
               <h3>Hot Coffee</h3>
             </div>
             <div id="menu-hot-coffee"></div>
@@ -293,7 +310,6 @@
           <div class="extras-grid" id="extras-grid"></div>
         </div>
 
-        <!-- ORDER PANEL -->
         <div>
           <div class="order-panel">
             <h2>Your Selection</h2>
@@ -311,10 +327,10 @@
                 <label>Name</label>
                 <input type="text" id="c-name" placeholder="E.g. John">
                 <label>Order Type</label>
-                <select id="c-type">
+                <select id="c-type" onchange="updateCart()">
                   <option value="sit-in">Sit In</option>
                   <option value="pickup">Pick Up</option>
-                  <option value="delivery">Delivery</option>
+                  <option value="delivery">Delivery (+€4.00 fee)</option>
                 </select>
                 <label>Notes</label>
                 <textarea id="c-notes" rows="2"></textarea>
@@ -329,13 +345,23 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-socials">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TikTok</a>
+    </div>
+    <div class="footer-credit">
+      Website designed by Lyba Media 2026
+    </div>
+  </footer>
+
 <script>
-// DATA
 const hotCoffee = [
   { id: 'espresso',    name: 'Espresso',    price: 2.50 },
   { id: 'americano',   name: 'Americano',   price: 2.70 },
@@ -412,6 +438,7 @@ function renderExtras() {
 
 function updateCart() {
     const itemsEl = document.getElementById('cart-items');
+    const orderType = document.getElementById('c-type').value;
     const allItems = [...hotCoffee, ...icedItems, ...treats];
     let total = 0;
     let hasItems = false;
@@ -434,18 +461,22 @@ function updateCart() {
         itemsEl.innerHTML += `<div class="cart-line" style="color:var(--gold)"><span>+ ${ex.name}</span><span>${fmt(ex.price)}</span></div>`;
     });
 
+    // DELIVERY FEE LOGIC
+    if (hasItems && orderType === 'delivery') {
+        total += 4.00;
+        itemsEl.innerHTML += `<div class="cart-line" style="border-top:1px solid #333; padding-top:10px;"><span>Delivery Fee</span><span>€4.00</span></div>`;
+    }
+
     document.getElementById('cart-total').style.display = hasItems ? 'flex' : 'none';
     document.getElementById('cart-total-price').textContent = fmt(total);
     document.getElementById('place-order-btn').disabled = !hasItems;
 }
 
-// Initializing
 renderSection('menu-hot-coffee', hotCoffee);
 renderSection('menu-iced', icedItems);
 renderSection('menu-treats', treats);
 renderExtras();
 
-// Place Order Logic
 document.getElementById('place-order-btn').onclick = function() {
     this.textContent = "Sending...";
     setTimeout(() => {
@@ -453,7 +484,6 @@ document.getElementById('place-order-btn').onclick = function() {
         document.getElementById('success-msg').style.display = 'block';
     }, 1500);
 };
-
 </script>
 </body>
 </html>
