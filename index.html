@@ -26,7 +26,7 @@
     line-height: 1.6;
   }
 
-  /* 1. HERO SECTION WITH VIDEO */
+  /* 1. HERO SECTION WITH DROGHEDA LANDSCAPE */
   .hero {
     height: 100vh;
     display: flex;
@@ -36,62 +36,47 @@
     color: white;
     text-align: center;
     overflow: hidden;
-    background-color: #000; /* Fallback while loading */
   }
 
-  /* Video Layer */
-  .hero-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: 1; /* Lowest layer */
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-  }
-
-  /* Dark Overlay Layer */
-  .hero-overlay {
+  .hero-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.55);
-    z-index: 2; /* Sits on top of video, below text */
+    /* Landscape of Drogheda featuring the Viaduct and Millmount Skyline */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://upload.wikimedia.org/wikipedia/commons/e/ec/The_Boyne_Viaduct_-_Drogheda_%285632684623%29.jpg');
+    background-size: cover;
+    background-position: center 30%; /* Focus on the bridge/skyline */
+    z-index: -1;
+    transition: transform 10s ease;
   }
 
-  /* Text Content Layer */
-  .hero-content {
-    position: relative;
-    z-index: 3; /* Top layer */
-    padding: 0 20px;
-  }
+  .hero:hover .hero-bg { transform: scale(1.05); }
 
   .hero-content h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 10vw, 6.5rem);
+    font-size: clamp(3rem, 10vw, 6rem);
     font-weight: 900;
     margin-bottom: 1rem;
-    line-height: 1.1;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    line-height: 1;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
   }
 
   .hero-content p {
     font-size: 1.2rem;
-    letter-spacing: 5px;
+    letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     font-weight: 500;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
   }
 
   .btn-primary {
     display: inline-block;
-    padding: 1.2rem 3rem;
+    padding: 1.2rem 2.5rem;
     background: var(--gold);
     color: white;
     text-decoration: none;
@@ -99,15 +84,10 @@
     border-radius: 50px;
     transition: 0.3s;
     font-family: 'Playfair Display', serif;
-    border: 2px solid var(--gold);
+    box-shadow: 0 10px 30px rgba(179, 139, 77, 0.3);
   }
 
-  .btn-primary:hover { 
-    background: transparent; 
-    color: white; 
-    border-color: white;
-    transform: translateY(-3px); 
-  }
+  .btn-primary:hover { background: var(--white); color: var(--dark); transform: translateY(-3px); }
 
   /* 2. ABOUT SECTION */
   .about-section {
@@ -124,25 +104,12 @@
     .about-section { grid-template-columns: 1fr; text-align: center; padding: 4rem 2rem; }
   }
 
-  .about-image {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  }
-
-  .about-image img { width: 100%; display: block; }
+  .about-image img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
 
   .about-text h2 {
     font-family: 'Playfair Display', serif;
     font-size: 3rem;
     color: var(--brown);
-    margin-bottom: 1.5rem;
-  }
-
-  .about-text p {
-    font-size: 1.1rem;
-    color: #666;
     margin-bottom: 1.5rem;
   }
 
@@ -152,47 +119,20 @@
     padding: 6rem 0;
   }
 
-  .section-title {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
+  .section-title { text-align: center; margin-bottom: 4rem; }
+  .section-title h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--dark); }
 
-  .section-title h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    color: var(--dark);
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  .main-grid {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 3rem;
-  }
-
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .main-grid { display: grid; grid-template-columns: 1fr 380px; gap: 3rem; }
   @media (max-width: 950px) { .main-grid { grid-template-columns: 1fr; } }
 
-  .category-section {
-    margin-bottom: 3rem;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 2rem;
-  }
-
+  .category-section { margin-bottom: 3rem; border-bottom: 1px solid #eee; padding-bottom: 2rem; }
   .cat-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-  .cat-header img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background: #eee; }
+  .cat-header img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
   .cat-header h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; }
 
-  .menu-item {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1rem; border-radius: 12px; transition: 0.2s;
-  }
+  .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-radius: 12px; transition: 0.2s; }
   .menu-item:hover { background: var(--cream); }
-
   .item-name { font-weight: 500; font-size: 1.1rem; }
   .item-price { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--gold); margin-right: 1rem; }
 
@@ -200,89 +140,39 @@
   .qty-btn { width: 28px; height: 28px; border-radius: 50%; border: none; background: white; cursor: pointer; font-weight: bold; }
   .qty-num { padding: 0 10px; font-weight: 600; min-width: 30px; text-align: center; }
 
-  /* SIDEBAR & FORM */
-  .order-panel {
-    background: var(--dark); color: white;
-    border-radius: 24px; padding: 2.5rem 2rem;
-    position: sticky; top: 2rem;
-  }
-
-  .order-panel h2 { font-family: 'Playfair Display', serif; border-bottom: 1px solid #333; padding-bottom: 1rem; margin-bottom: 1.5rem; }
-
+  /* SIDEBAR CART */
+  .order-panel { background: var(--dark); color: white; border-radius: 24px; padding: 2.5rem 2rem; position: sticky; top: 2rem; }
+  .order-panel h2 { font-family: 'Playfair Display', serif; margin-bottom: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 10px; }
   .cart-line { display: flex; justify-content: space-between; padding: 0.5rem 0; font-size: 0.9rem; }
-  .cart-total { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--gold); display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem; }
+  .cart-total { border-top: 1px solid var(--gold); padding-top: 1rem; margin-top: 1rem; display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem; }
 
   .customer-form label { display: block; font-size: 0.7rem; color: var(--gold); text-transform: uppercase; margin-top: 1rem; }
-  .customer-form input, select, textarea { width: 100%; background: #1e1c1a; border: 1px solid #333; color: white; padding: 0.7rem; border-radius: 8px; margin-top: 0.3rem; font-family: 'Jost', sans-serif; }
+  .customer-form input, select, textarea { width: 100%; background: #1e1c1a; border: 1px solid #333; color: white; padding: 0.7rem; border-radius: 8px; margin-top: 0.3rem; font-family: inherit; }
 
-  #delivery-info {
-    margin-top: 1rem;
-    padding: 1.5rem;
-    background: rgba(179, 139, 77, 0.1);
-    border-radius: 12px;
-    border: 1px solid #3d2b1f;
-  }
+  #delivery-info { display: none; margin-top: 10px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px dashed #444; }
 
-  .order-btn {
-    width: 100%; padding: 1rem; background: var(--gold); color: white; border: none; border-radius: 50px;
-    font-family: 'Playfair Display', serif; font-weight: 700; margin-top: 2rem; cursor: pointer;
-  }
+  .order-btn { width: 100%; padding: 1rem; background: var(--gold); color: white; border: none; border-radius: 50px; font-weight: 700; margin-top: 2rem; cursor: pointer; font-family: 'Playfair Display', serif; }
   .order-btn:disabled { opacity: 0.3; }
 
   /* EXTRAS */
   .extras-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 1rem; }
-  .extra-item { background: var(--cream); padding: 0.8rem; border-radius: 10px; font-size: 0.85rem; cursor: pointer; border: 1px solid transparent; }
+  .extra-item { background: var(--cream); padding: 0.8rem; border-radius: 10px; font-size: 0.85rem; cursor: pointer; border: 1px solid transparent; color: var(--dark); }
   .extra-item.selected { border-color: var(--gold); background: #fff; }
 
   /* FOOTER */
-  footer {
-    background: var(--dark);
-    color: var(--white);
-    padding: 5rem 2rem 3rem;
-    text-align: center;
-  }
-
-  .footer-socials {
-    margin-bottom: 3rem;
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-  }
-
-  .footer-socials a {
-    color: var(--gold);
-    text-decoration: none;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 0.85rem;
-    transition: 0.3s;
-  }
-
-  .footer-socials a:hover { color: var(--white); transform: translateY(-3px); }
-
-  .footer-credit {
-    font-size: 0.75rem;
-    opacity: 0.5;
-    border-top: 1px solid #222;
-    padding-top: 3rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
+  footer { background: var(--dark); color: white; padding: 5rem 2rem 3rem; text-align: center; }
+  .social-links { margin-bottom: 3rem; }
+  .social-links a { color: var(--gold); text-decoration: none; margin: 0 15px; text-transform: uppercase; letter-spacing: 3px; font-size: 0.85rem; font-weight: 500; transition: 0.3s; }
+  .social-links a:hover { color: white; transform: translateY(-3px); }
+  .footer-credit { opacity: 0.5; font-size: 0.8rem; border-top: 1px solid #222; padding-top: 3rem; margin-top: 3rem; letter-spacing: 1px; text-transform: uppercase; }
 
 </style>
 </head>
 <body>
 
-  <!-- 1. HERO SECTION WITH VIDEO -->
+  <!-- 1. HERO SECTION -->
   <section class="hero">
-    <!-- Updated Video Source: Professional Espresso Pour -->
-    <video autoplay muted loop playsinline class="hero-video">
-      <source src="https://player.vimeo.com/external/394334336.sd.mp4?s=f36113b28f73f82e75e11364d94819d44c21950d&profile_id=139&oauth2_token_id=57447761" type="video/mp4">
-    </video>
-    
-    <div class="hero-overlay"></div>
-    
+    <div class="hero-bg"></div>
     <div class="hero-content">
       <p>Artisan Brewing in Drogheda</p>
       <h1>Courtyard Coffee</h1>
@@ -293,12 +183,12 @@
   <!-- 2. ABOUT SECTION -->
   <section class="about-section">
     <div class="about-image">
-      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=800" alt="Coffee Shop Interior">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=800" alt="Cafe interior">
     </div>
     <div class="about-text">
       <h2>Crafting Moments, One Cup at a Time</h2>
-      <p>Tucked away in the heart of Drogheda, Courtyard Coffee is more than just a café. We are a sanctuary for coffee lovers who appreciate the art of a perfect pour.</p>
-      <p>From our ethically sourced beans to our locally baked pastries, every detail is designed to bring you a moment of peace in your busy day.</p>
+      <p>Tucked away in the heart of Drogheda, Courtyard Coffee is a sanctuary for coffee lovers who appreciate the art of a perfect pour.</p>
+      <p>From ethically sourced beans to locally baked pastries, every detail is designed to fuel your day.</p>
     </div>
   </section>
 
@@ -311,13 +201,10 @@
 
     <div class="container">
       <div class="main-grid">
-
-        <!-- MENU -->
         <div class="menu-col">
           <div class="category-section">
             <div class="cat-header">
-              <!-- FIXED HOT COFFEE IMAGE -->
-              <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=150&auto=format&fit=crop" alt="Hot Coffee">
+              <img src="https://images.unsplash.com/photo-1541167760496-1628856ab752?auto=format&fit=crop&q=80&w=150" alt="Hot Coffee">
               <h3>Hot Coffee</h3>
             </div>
             <div id="menu-hot-coffee"></div>
@@ -325,7 +212,7 @@
 
           <div class="category-section">
             <div class="cat-header">
-              <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=150" alt="Iced Drinks">
+              <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=150" alt="Iced">
               <h3>Iced Selection</h3>
             </div>
             <div id="menu-iced"></div>
@@ -343,7 +230,7 @@
           <div class="extras-grid" id="extras-grid"></div>
         </div>
 
-        <!-- CHECKOUT PANEL -->
+        <!-- SIDEBAR CART -->
         <div>
           <div class="order-panel">
             <h2>Your Selection</h2>
@@ -359,33 +246,32 @@
 
               <div class="customer-form">
                 <label>Name</label>
-                <input type="text" id="c-name" placeholder="E.g. John">
+                <input type="text" id="c-name" placeholder="E.g. James">
                 
                 <label>Order Type</label>
                 <select id="c-type" onchange="updateCart()">
                   <option value="sit-in">Sit In</option>
                   <option value="pickup">Pick Up</option>
-                  <option value="delivery">Delivery (+€4.00 fee)</option>
+                  <option value="delivery">Delivery (+€4.00 Fee)</option>
                 </select>
 
                 <!-- DYNAMIC DELIVERY FIELDS -->
-                <div id="delivery-info" style="display:none;">
-                  <label>Delivery Address</label>
-                  <input type="text" id="c-address" placeholder="Street name and house number">
-                  <label>Eircode</label>
-                  <input type="text" id="c-eircode" placeholder="e.g. A92 X123">
+                <div id="delivery-info">
+                    <label>Delivery Address</label>
+                    <input type="text" id="c-address" placeholder="e.g. 24 Laurence St">
+                    <label>Eircode</label>
+                    <input type="text" id="c-eircode" placeholder="e.g. A92 K2XY">
                 </div>
 
                 <label>Notes</label>
-                <textarea id="c-notes" rows="2" placeholder="Any special instructions?"></textarea>
+                <textarea id="c-notes" rows="2"></textarea>
               </div>
 
               <button class="order-btn" id="place-order-btn" disabled>Place Order</button>
             </div>
-
             <div id="success-msg" style="display:none; text-align:center;">
                 <h3 style="color:var(--gold); font-family:'Playfair Display'; font-size: 2rem;">Order Sent!</h3>
-                <p>We'll see you at the Courtyard.</p>
+                <p>We'll have it ready for you shortly.</p>
             </div>
           </div>
         </div>
@@ -395,13 +281,13 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-socials">
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">TikTok</a>
+    <div class="social-links">
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">TikTok</a>
     </div>
     <div class="footer-credit">
-      Website designed by Lyba Media 2026
+        Website designed by Lyba Media 2026
     </div>
   </footer>
 
@@ -413,22 +299,9 @@ const hotCoffee = [
   { id: 'latte',       name: 'Latte',       price: 3.20 },
   { id: 'mocha',       name: 'Mocha',       price: 3.70 },
 ];
-
-const icedItems = [
-  { id: 'iced-latte',  name: 'Iced Latte',  price: 3.50 },
-  { id: 'iced-tea',    name: 'Iced Tea',     price: 3.50 },
-];
-
-const treats = [
-  { id: 'pastry',      name: 'Fresh Pastry', price: 2.50 },
-  { id: 'protein-ball',name: 'Protein Ball', price: 2.00 },
-];
-
-const extras = [
-  { id: 'x-shot',      name: 'Extra Shot',       price: 0.50 },
-  { id: 'x-oat',       name: 'Oat Milk',         price: 0.50 },
-  { id: 'x-syrup',     name: 'Syrup',            price: 0.30 },
-];
+const icedItems = [{ id: 'iced-latte', name: 'Iced Latte', price: 3.50 }, { id: 'iced-tea', name: 'Iced Tea', price: 3.50 }];
+const treats = [{ id: 'pastry', name: 'Fresh Pastry', price: 2.50 }, { id: 'protein-ball', name: 'Protein Ball', price: 2.00 }];
+const extras = [{ id: 'x-shot', name: 'Extra Shot', price: 0.50 }, { id: 'x-oat', name: 'Oat Milk', price: 0.50 }, { id: 'x-syrup', name: 'Syrup', price: 0.30 }];
 
 const cart = {};
 const selectedExtras = new Set();
@@ -467,13 +340,8 @@ function renderExtras() {
     div.id = 'ex-' + e.id;
     div.innerHTML = `<span>${e.name}</span> <span style="float:right">+${fmt(e.price)}</span>`;
     div.onclick = () => {
-        if(selectedExtras.has(e.id)) {
-            selectedExtras.delete(e.id);
-            div.classList.remove('selected');
-        } else {
-            selectedExtras.add(e.id);
-            div.classList.add('selected');
-        }
+        if(selectedExtras.has(e.id)) { selectedExtras.delete(e.id); div.classList.remove('selected'); }
+        else { selectedExtras.add(e.id); div.classList.add('selected'); }
         updateCart();
     };
     el.appendChild(div);
@@ -483,23 +351,18 @@ function renderExtras() {
 function updateCart() {
     const itemsEl = document.getElementById('cart-items');
     const orderType = document.getElementById('c-type').value;
-    const deliveryInfo = document.getElementById('delivery-info');
     const allItems = [...hotCoffee, ...icedItems, ...treats];
     let total = 0;
     let hasItems = false;
     itemsEl.innerHTML = '';
     
     // Toggle Delivery UI
-    if (orderType === 'delivery') {
-        deliveryInfo.style.display = 'block';
-    } else {
-        deliveryInfo.style.display = 'none';
-    }
+    document.getElementById('delivery-info').style.display = (orderType === 'delivery') ? 'block' : 'none';
 
-    // Calculate Items
     allItems.forEach(item => {
         const q = cart[item.id] || 0;
-        document.getElementById('qty-'+item.id).textContent = q;
+        const qtySpan = document.getElementById('qty-'+item.id);
+        if(qtySpan) qtySpan.textContent = q;
         if(q > 0) {
             hasItems = true;
             const lineTotal = item.price * q;
@@ -508,17 +371,16 @@ function updateCart() {
         }
     });
 
-    // Calculate Extras
     selectedExtras.forEach(eid => {
         const ex = extras.find(e => e.id === eid);
         total += ex.price;
         itemsEl.innerHTML += `<div class="cart-line" style="color:var(--gold)"><span>+ ${ex.name}</span><span>${fmt(ex.price)}</span></div>`;
     });
 
-    // Delivery Fee Logic
+    // €4 Delivery Logic
     if (hasItems && orderType === 'delivery') {
         total += 4.00;
-        itemsEl.innerHTML += `<div class="cart-line" style="border-top:1px solid #333; padding-top:10px; margin-top:10px;"><span>Delivery Fee</span><span>€4.00</span></div>`;
+        itemsEl.innerHTML += `<div class="cart-line" style="border-top:1px solid #444; padding-top:5px; margin-top:5px;"><span>Delivery Fee</span><span>€4.00</span></div>`;
     }
 
     document.getElementById('cart-total').style.display = hasItems ? 'flex' : 'none';
